@@ -97,11 +97,39 @@ The tool automatically spaces applications 12–60 minutes apart (randomized) to
 
 ```bash
 # Run tests
-pytest
+python -m pytest tests/
 
 # Install dev dependencies
-pip install pytest pytest-playwright
+pip install -r requirements.txt
 ```
+
+## Project Structure
+
+```
+auto-applier-tool/
+├── main.py                 # Entry point and orchestration
+├── resume_matching.py      # Resume-to-job matching logic
+├── browser_automation.py   # Playwright wrapper and pause mechanism
+├── utils.py              # Rate limiting and CSV tracking
+├── ats_handlers/         # ATS-specific form handlers
+│   ├── base.py           # Abstract ATS handler
+│   ├── greenhouse.py     # Greenhouse implementation
+│   └── lever.py          # Lever implementation
+├── config/
+│   └── profile.json     # User profile (auto-created)
+├── data/
+│   ├── jobs.csv         # Input: job URLs
+│   └── applications.csv # Output: application results
+└── tests/              # Unit tests
+```
+
+## Example Usage
+
+1. Prepare `data/jobs.csv` with your job URLs
+2. Create numbered resume folders (01_*, 02_*, etc.) in the project root
+3. Run `python main.py`
+4. Follow the prompts to set up your profile (first time only)
+5. The tool will automatically apply to each job, pausing for manual intervention when needed
 
 ## License
 
