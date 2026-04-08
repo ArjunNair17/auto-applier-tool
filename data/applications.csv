@@ -1,0 +1,6 @@
+job_id,company,job_url,status,resume_path,timestamp,notes
+1,Example Company,https://boards.greenhouse.io/example/jobs/12345,failed,01_Example Company/resume.pdf,2026-04-08 15:22:41,"Exception: Page.goto: net::ERR_ABORTED; maybe frame was detached?
+Call log:
+  - navigating to ""https://boards.greenhouse.io/example/jobs/12345"", waiting until ""networkidle""
+"
+2,Another Company,https://jobs.lever.co/example/67890,failed,02_Another Company/resume.pdf,2026-04-08 15:22:41,"Exception: Page.goto: Target page, context or browser has been closed"
