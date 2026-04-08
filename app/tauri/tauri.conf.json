@@ -1,0 +1,43 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Auto-Applier",
+  "version": "0.1.0",
+  "identifier": "com.autoapplier.desktop",
+  "build": {
+    "beforeDevCommand": "",
+    "beforeBuildCommand": "",
+    "devUrl": "http://localhost:5173",
+    "frontendDist": "../frontend/dist",
+    "withGlobalTauri": true
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Auto-Applier v2",
+        "width": 1200,
+        "height": 800,
+        "resizable": true,
+        "fullscreen": false
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [],
+    "category": "Productivity",
+    "copyright": "",
+    "shortDescription": "",
+    "longDescription": "Automated job application tool for macOS",
+    "macOS": {
+      "entitlements": [],
+      "exceptionDomain": "",
+      "frameworks": [],
+      "providerShortName": null,
+      "signingIdentity": "AutoApplier"
+    }
+  }
+}

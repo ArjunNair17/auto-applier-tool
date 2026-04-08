@@ -1,0 +1,27 @@
+[package]
+name = "auto-applier"
+version = "0.1.0"
+description = "Auto-Applier v2 - Desktop Application"
+authors = ["you"]
+license = ""
+repository = ""
+edition = "2021"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+tauri-codegen = { version = "2", features = [] }
+
+[dependencies]
+serde_json = "1"
+serde = { version = "1", features = ["derive"] }
+tauri = { version = "2", features = ["shell-open"] }
+
+[profile.release]
+incremental = false
+codegen-units = ["bytes", "opt-level"]
+lto = true
+opt-level = 3
+
+[profile.dev]
+incremental = true
+codegen-units = ["bytes", "opt-level"]
