@@ -169,15 +169,34 @@ def test_match_success(temp_jobs_csv, temp_resume_dirs):
     assert resume_path.endswith('resume.pdf')
 
 
-def test_match_mismatch_counts(temp_jobs_csv, tmp_path):
-    """Test error when job count doesn't match folder count."""
+def test_match_not_enough_folders(temp_jobs_csv, tmp_path):
+    """Test error when not enough resume folders for jobs."""
     resume_base = tmp_path / "resumes"
     resume_base.mkdir()
-    (resume_base / "01_One").mkdir()
+    (resume_base / "01_One").mkdir()  # Only 1 folder for 3 jobs
 
     matcher = ResumeMatcher(temp_jobs_csv, str(resume_base))
-    with pytest.raises(ValueError, match="Job count .* doesn't match resume folder count"):
+    with pytest.raises(ValueError, match="Not enough resume folders"):
         matcher.match()
+
+
+def test_match_extra_folders(temp_jobs_csv, tmp_path):
+    """Test that extra resume folders beyond job count are ignored."""
+    resume_base = tmp_path / "resumes"
+    resume_base.mkdir()
+
+    # Create folders for 3 jobs plus 2 extra
+    for i in range(1, 6):
+        folder = resume_base / f"{i:02d}_Company_{i}"
+        folder.mkdir()
+        (folder / "resume.pdf").write_text("fake pdf")
+
+    matcher = ResumeMatcher(temp_jobs_csv, str(resume_base))
+    matches = matcher.match()
+
+    # Should only use first 3 folders (for 3 jobs)
+    assert len(matches) == 3
+    assert all('Company_' in match[3] for match in matches)
 
 
 def test_match_missing_pdf(tmp_path):

@@ -118,11 +118,15 @@ class ResumeMatcher:
         job_count = len(jobs_df)
         resume_count = len(resume_folders)
 
-        if job_count != resume_count:
+        if resume_count < job_count:
             raise ValueError(
-                f"Job count ({job_count}) doesn't match resume folder count ({resume_count}). "
-                f"Ensure you have one numbered folder per job."
+                f"Not enough resume folders. Found {resume_count} folders but have {job_count} jobs. "
+                f"Ensure you have at least one numbered folder per job."
             )
+
+        # Use only the first N folders (where N = job count)
+        # Extra folders beyond job count are ignored
+        resume_folders = resume_folders[:job_count]
 
         matches = []
         for idx, (_, row) in enumerate(jobs_df.iterrows()):
